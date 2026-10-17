@@ -1,1 +1,0 @@
-# Nhom1_8Puzzel_bdtt-tknc
