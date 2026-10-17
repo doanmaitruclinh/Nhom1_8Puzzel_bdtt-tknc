@@ -1,0 +1,2 @@
+﻿case,model,algorithm,heuristic,order,status,steps,cost,expanded,generated,pushed,popped,stale_pops,reopened,max_frontier,elapsed_ms
+N2,unit,bfs,zero,UDLR,solved,14,14,3789,10274,5993,3790,0,0,2205,45.42349999974249
