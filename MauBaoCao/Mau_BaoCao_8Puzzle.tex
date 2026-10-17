@@ -1,0 +1,214 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{lmodern}
+\usepackage[a4paper,left=19mm,right=19mm,top=21mm,bottom=21mm,headheight=16pt]{geometry}
+\usepackage{amsmath,amssymb,booktabs,array,tabularx,longtable,ragged2e}
+\usepackage[table]{xcolor}
+\usepackage{tikz,listings,enumitem,fancyhdr,lastpage,needspace}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage[most]{tcolorbox}
+\usepackage[unicode,hidelinks]{hyperref}
+\usepackage{bookmark}
+\definecolor{Ink}{HTML}{18384F}
+\definecolor{Teal}{HTML}{087E8B}
+\definecolor{Paper}{HTML}{F1F6F8}
+\definecolor{Muted}{HTML}{526477}
+\definecolor{Green}{HTML}{276548}
+\renewcommand{\tabularxcolumn}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{2em}\linespread{1.025}
+\setlist[enumerate]{leftmargin=6mm,itemsep=4pt,topsep=3pt}
+\setlist[itemize]{leftmargin=5mm,itemsep=3pt,topsep=3pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\fontsize{8}{9.5}\selectfont\sffamily\color{Ink}BIỂU DIỄN TRI THỨC VÀ TÌM KIẾM NÂNG CAO}
+\fancyhead[R]{\fontsize{8}{9.5}\selectfont\sffamily\VersionShort}
+\fancyfoot[L]{\fontsize{8.5}{10}\selectfont\color{Muted}Nguyễn Bích Vân\textbar Biểu diễn tri thức và tìm kiếm nâng cao}
+\fancyfoot[R]{\footnotesize\thepage/\pageref*{LastPage}}
+\renewcommand{\headrulewidth}{.4pt}
+\newtcolorbox{notice}[1][]{enhanced,breakable,colback=Paper,colframe=Teal!45,boxrule=.5pt,arc=1mm,left=3mm,right=3mm,top=2mm,bottom=2mm,#1}
+\newcommand{\head}[1]{\par\Needspace{4\baselineskip}\medskip{\large\sffamily\bfseries\color{Ink}#1}\par}
+\newcommand{\pagehead}[1]{\clearpage\begin{tcolorbox}[colback=Ink,colframe=Ink,coltext=white,fontupper=\sffamily\large\bfseries,arc=1mm]#1\end{tcolorbox}}
+\lstdefinestyle{py}{language=Python,basicstyle=\ttfamily\fontsize{8.5}{10.1}\selectfont,keywordstyle=\bfseries\color{Teal},commentstyle=\color{Muted}\itshape,stringstyle=\color{Green},showstringspaces=false,keepspaces=true,columns=fullflexible,breaklines=true,frame=single,rulecolor=\color{Teal!35},backgroundcolor=\color{Paper},framesep=5pt,aboveskip=6pt,belowskip=6pt,upquote=true,tabsize=4}
+\lstset{style=py}
+\hypersetup{pdfauthor={Nguyễn Bích Vân},pdflang={vi-VN},pdfsubject={Biểu diễn tri thức và tìm kiếm nâng cao}}
+\newcommand{\VersionShort}{MẪU BÁO CÁO}
+\hypersetup{pdftitle={Mẫu báo cáo nhóm 5 -- 8-puzzle}}
+\begin{document}\small
+{\Large\sffamily\bfseries\color{Ink}01. THÔNG TIN NHÓM VÀ MÔ HÌNH}\par\medskip
+BÁO CÁO GIỮA KỲ — XẾP HÌNH 8 Ô NÂNG CAO\par\medskip
+Học phần: Biểu diễn tri thức và tìm kiếm nâng cao\par Giảng viên: TS. Nguyễn Bích Vân — IAI–UET–VNU\par\medskip
+Nhóm / lớp: [Điền]        Ngày giao / ngày nộp: [Điền]\par Môi trường Python / hệ điều hành: [Điền]\par\medskip
+Hướng dẫn: thay [Điền], thêm dòng hoặc giãn ô khi cần. Mẫu trống 7 trang; báo cáo hoàn thiện 6–8 trang, không tính phụ lục tính tay. Không cần điền cả Word và LaTeX. Không ghi PASS khi chưa chạy thử.\par\medskip
+
+\par\begingroup\footnotesize\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{>{\hsize=1.0698\hsize\linewidth=\hsize}X>{\hsize=0.9302\hsize\linewidth=\hsize}X>{\hsize=0.8837\hsize\linewidth=\hsize}X>{\hsize=1.1163\hsize\linewidth=\hsize}X}\toprule
+\textbf{Thành viên / MSSV} & \textbf{Phần chủ trì} & \textbf{2 test phụ trách} & \textbf{Kiểm tra chéo}\\\midrule
+\strut 1. [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 2. [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 3. [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 4. [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 5. [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+\head{1. Bài toán nhóm đang giải}
+Trạng thái, hành động, điều kiện đích, hàm chuyển: [Điền 4–6 câu, giải thích vì sao chỉ vị trí ô trống là chưa đủ.]\par\medskip
+
+\par\begingroup\footnotesize\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{>{\hsize=0.5581\hsize\linewidth=\hsize}X>{\hsize=1.1860\hsize\linewidth=\hsize}X>{\hsize=1.2558\hsize\linewidth=\hsize}X}\toprule
+\textbf{Mô hình} & \textbf{Chi phí một bước} & \textbf{Mục tiêu tối ưu}\\\midrule
+\strut unit & \strut [Điền] & \strut [Điền]\\
+\strut directional & \strut [Điền] & \strut [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Nguồn mã đã dùng nguyên / các tệp nhóm thay hoặc tự viết: [Điền chính xác tên tệp và công việc. Không chỉ ghi “tham khảo”.]\par\medskip
+\pagehead{2. TRÌNH BÀY THUẬT TOÁN VÀ HEURISTIC}
+\head{2. A* trong chương trình của nhóm}
+Giải thích f, g, h bằng lời của nhóm: [Điền].\par Khác biệt BFS/UCS/A*: [Điền].\par\medskip
+
+\par\begingroup\footnotesize\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{>{\hsize=0.7674\hsize\linewidth=\hsize}X>{\hsize=1.4651\hsize\linewidth=\hsize}X>{\hsize=0.7674\hsize\linewidth=\hsize}X}\toprule
+\textbf{Bước thuật toán} & \textbf{Mã giả do nhóm viết / giải thích} & \textbf{Tệp và dòng tương ứng}\\\midrule
+\strut Khởi tạo & \strut [Điền] & \strut [Điền]\\
+\strut Lấy nút / xử lý hòa & \strut [Điền] & \strut [Điền]\\
+\strut Bỏ bản ghi cũ & \strut [Điền] & \strut [Điền]\\
+\strut Kiểm tra đích & \strut [Điền] & \strut [Điền]\\
+\strut Sinh con / cập nhật giá & \strut [Điền] & \strut [Điền]\\
+\strut Lưu cha / dựng đường & \strut [Điền] & \strut [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+\head{3. Vì sao heuristic dùng được?}
+
+\par\begingroup\footnotesize\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{>{\hsize=0.3488\hsize\linewidth=\hsize}X>{\hsize=1.5349\hsize\linewidth=\hsize}X>{\hsize=1.1163\hsize\linewidth=\hsize}X}\toprule
+\textbf{Hàm} & \textbf{Định nghĩa / bỏ ô 0 thế nào?} & \textbf{Điều kiện theo mô hình}\\\midrule
+\strut h1 & \strut [Điền] & \strut [Điền]\\
+\strut h2 & \strut [Điền] & \strut [Điền]\\
+\strut h3 & \strut [Điền] & \strut [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Lập luận h1 $\le$ h2 và cận dưới cho từng mô hình: [Điền; không chỉ liệt kê bất đẳng thức.]\par\medskip
+Lập luận nhất quán trên đúng một cạnh: [Điền mức thay đổi h khi quân số đi dọc/ngang.]\par\medskip
+Điều kiện A* tối ưu; vì sao không dừng khi vừa sinh đích: [Điền].\par\medskip
+\pagehead{3. TÍNH TAY VÀ ĐỐI CHIẾU VẾT CHẠY}
+\head{4. Trạng thái H và dự đoán trước khi chạy}
+H = (1,3,6,5,0,2,4,7,8). PDF tính tay chi tiết: TinhTay.pdf, trang [Điền].\par Dự đoán được ghi vào ngày / thời điểm: [Điền].\par\medskip
+
+\par\begingroup\footnotesize\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{>{\hsize=0.7674\hsize\linewidth=\hsize}X>{\hsize=0.7674\hsize\linewidth=\hsize}X>{\hsize=0.7674\hsize\linewidth=\hsize}X>{\hsize=1.6977\hsize\linewidth=\hsize}X}\toprule
+\textbf{h1(H)} & \textbf{h2(H)} & \textbf{h3(H)} & \textbf{Ghi chú đóng góp quân}\\\midrule
+\strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+
+\par\begingroup\footnotesize\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{>{\hsize=0.3488\hsize\linewidth=\hsize}X>{\hsize=2.4419\hsize\linewidth=\hsize}X>{\hsize=0.5233\hsize\linewidth=\hsize}X>{\hsize=0.5233\hsize\linewidth=\hsize}X>{\hsize=0.5233\hsize\linewidth=\hsize}X>{\hsize=1.6395\hsize\linewidth=\hsize}X}\toprule
+\textbf{Lần} & \textbf{Nhãn / trạng thái lấy ra} & \textbf{g} & \textbf{h} & \textbf{f} & \textbf{Khớp tay–code?}\\\midrule
+\strut 1 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 2 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 3 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 4 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 5 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 6 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+OPEN sau một bước nhóm chọn; nơi FIFO quyết định thứ tự: [Điền và dẫn trang tính tay / tệp trace].\par\medskip
+
+\par\begingroup\footnotesize\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{>{\hsize=0.8721\hsize\linewidth=\hsize}X>{\hsize=1.8023\hsize\linewidth=\hsize}X>{\hsize=0.5233\hsize\linewidth=\hsize}X>{\hsize=0.5233\hsize\linewidth=\hsize}X>{\hsize=1.2791\hsize\linewidth=\hsize}X}\toprule
+\textbf{Mô hình} & \textbf{Dãy hành động / đường} & \textbf{Số bước} & \textbf{Cost} & \textbf{Lý do tối ưu}\\\midrule
+\strut unit & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut directional & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+\head{5. Các phản ví dụ đã phát hiện}
+Đếm cả 0 trên V: [Điền h sai / chi phí thật / cạnh vi phạm].\par Đổi goal nhưng giữ tọa độ cũ: [Điền].\par Parity và limit khác nhau: [Điền].\par\medskip
+Điểm dự đoán sai hoặc hiểu rõ hơn sau đối chiếu: [Điền; không điền ngược dự đoán từ kết quả code].\par\medskip
+\pagehead{4. KẾT QUẢ CHUNG — 36 CẤU HÌNH}
+Tệp CSV/JSON: output/bat\_buoc.csv và output/bat\_buoc.json.\par Lệnh chạy / order / model / số lần lặp: [Điền].\par Các ô N là số lần mở rộng; không phải số lần sinh con hay số byte RAM.\par\medskip
+\head{6. Mô hình unit}
+
+\par\begingroup\footnotesize\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{>{\hsize=0.4535\hsize\linewidth=\hsize}X>{\hsize=1.2209\hsize\linewidth=\hsize}X>{\hsize=0.9070\hsize\linewidth=\hsize}X>{\hsize=1.0116\hsize\linewidth=\hsize}X>{\hsize=1.0116\hsize\linewidth=\hsize}X>{\hsize=1.3953\hsize\linewidth=\hsize}X}\toprule
+\textbf{Case} & \textbf{Cost tối ưu (UCS)} & \textbf{N BFS} & \textbf{N A*/h1} & \textbf{N A*/h2} & \textbf{Giảm từ h1$\to$h2}\\\midrule
+\strut M1 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut M2 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut M3 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut M4 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Công thức tỷ lệ giảm và một phép tính cụ thể: [Điền].\par Cặp BFS/UCS và A* có cùng cost không? Bằng chứng: [Điền].\par\medskip
+\head{7. Mô hình directional}
+
+\par\begingroup\footnotesize\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{>{\hsize=0.4535\hsize\linewidth=\hsize}X>{\hsize=1.3256\hsize\linewidth=\hsize}X>{\hsize=1.3256\hsize\linewidth=\hsize}X>{\hsize=0.8721\hsize\linewidth=\hsize}X>{\hsize=0.8721\hsize\linewidth=\hsize}X>{\hsize=1.1512\hsize\linewidth=\hsize}X}\toprule
+\textbf{Case} & \textbf{BFS: bước / cost} & \textbf{UCS: bước / cost} & \textbf{N A*/h2} & \textbf{N A*/h3} & \textbf{Giảm từ h2$\to$h3}\\\midrule
+\strut M1 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut M2 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut M3 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut M4 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Một trường hợp BFS ít bước nhưng không ít chi phí: [Điền số liệu và chỉ ra số bước ngang/dọc của hai đường].\par\medskip
+Một so sánh heuristic có kiểm soát: [Điền start, goal, cost model, order được giữ nguyên; kết quả và lý do].\par\medskip
+Nếu có đo thời gian: máy, Python, trace/step, số lần lặp, trung vị: [Điền hoặc ghi “không thực hiện”]. Không so thời gian trực tiếp với máy giảng viên.\par\medskip
+\pagehead{5. DỮ LIỆU RIÊNG — 18 CẤU HÌNH}
+\head{8. Hai trạng thái và đích mới}
+Tệp dữ liệu: du\_lieu\_nhom.json. Goal chung cho N1/N2: [Điền đủ 9 số; phải khác goal chuẩn].\par\medskip
+
+\par\begingroup\footnotesize\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{>{\hsize=0.9070\hsize\linewidth=\hsize}X>{\hsize=1.0465\hsize\linewidth=\hsize}X>{\hsize=1.0465\hsize\linewidth=\hsize}X}\toprule
+\textbf{Nội dung} & \textbf{N1} & \textbf{N2}\\\midrule
+\strut Start (9 số) & \strut [Điền] & \strut [Điền]\\
+\strut Cách tạo / seed / lịch sử & \strut [Điền] & \strut [Điền]\\
+\strut Số bước xáo trộn & \strut [Điền] & \strut [Điền]\\
+\strut Số bước tối ưu do BFS & \strut [Điền] & \strut [Điền]\\
+\strut Kiểm khác mẫu / khả giải & \strut [Điền] & \strut [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Tại sao lịch sử xáo trộn không phải một chứng minh tối ưu: [Điền].\par\medskip
+
+\par\begingroup\footnotesize\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{>{\hsize=1.1047\hsize\linewidth=\hsize}X>{\hsize=1.0174\hsize\linewidth=\hsize}X>{\hsize=1.0174\hsize\linewidth=\hsize}X>{\hsize=1.3953\hsize\linewidth=\hsize}X>{\hsize=0.4651\hsize\linewidth=\hsize}X}\toprule
+\textbf{Case / model} & \textbf{BFS: bước / cost} & \textbf{UCS: bước / cost} & \textbf{A*: h / bước / cost} & \textbf{Kiểm path}\\\midrule
+\strut N1/unit & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut N2/unit & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut N1/directional & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut N2/directional & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Tệp output/tu\_tao.csv và JSON có đủ 18 dòng không? [Điền].\par Kết quả h(goal mới) và cách kiểm: [Điền].\par\medskip
+\head{9. Thử đổi thứ tự RDLU trên H}
+Dự đoán trước: [Điền].\par Kết quả / tệp trace riêng: [Điền].\par Điều thay đổi và điều không đổi; vì sao: [Điền].\par\medskip
+\pagehead{6. KIỂM THỬ DO NHÓM TỰ VIẾT}
+Tệp: test\_nhom.py. Log: output/ket\_qua\_test.txt.\par Lệnh chạy / ngày chạy / tổng test / số đạt, lỗi: [Điền kết quả thật].\par Tên ba test có kỳ vọng tính tay độc lập và trang minh chứng: [Điền].\par\medskip
+
+\par\begingroup\footnotesize\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{>{\hsize=0.2907\hsize\linewidth=\hsize}X>{\hsize=1.5116\hsize\linewidth=\hsize}X>{\hsize=1.7733\hsize\linewidth=\hsize}X>{\hsize=0.7558\hsize\linewidth=\hsize}X>{\hsize=0.6686\hsize\linewidth=\hsize}X}\toprule
+\textbf{STT} & \textbf{Tên test / dữ liệu} & \textbf{Kỳ vọng + cách suy ra} & \textbf{Kết quả thật} & \textbf{Người}\\\midrule
+\strut 1 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 2 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 3 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 4 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 5 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 6 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 7 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 8 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 9 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\strut 10 & \strut [Điền] & \strut [Điền] & \strut [Điền] & \strut [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Test bắt lỗi đếm cả 0: [Điền tên, khẳng định và phản ví dụ].\par Test bắt lỗi goal hard-code: [Điền tên, khẳng định và phản ví dụ].\par\medskip
+Test kiểm path và tính lại cost: [Điền].\par Test xác nhận không sửa đầu vào / trace không đổi kết quả: [Điền].\par\medskip
+Test chưa đạt hoặc giới hạn chưa kiểm: [Điền trung thực; không comment test lỗi rồi ghi là PASS].\par\medskip
+\pagehead{7. NHẬN XÉT, NGUỒN VÀ TÁI TẠO}
+\head{10. Ba kết luận chính có minh chứng}
+Kết luận 1 — heuristic và mở rộng nút: [Điền 60–100 từ, dẫn cấu hình/tệp/dòng].\par\medskip
+Kết luận 2 — số bước và chi phí: [Điền 60–100 từ, không chỉ “A* tốt hơn BFS”].\par\medskip
+Kết luận 3 — một lỗi đã sửa hoặc điểm hiểu rõ hơn: [Điền 60–100 từ, dẫn test/trace].\par\medskip
+\head{11. Giới hạn và nguồn dùng lại}
+Giới hạn 1: [Điền].\par Giới hạn 2: [Điền].\par Nguồn thuật toán/mã/công cụ hỗ trợ đã dùng, phần giữ nguyên và cách kiểm chứng: [Điền].\par\medskip
+\head{12. Tái chạy và chuẩn bị bảo vệ}
+
+\par\begingroup\footnotesize\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\linewidth}{>{\hsize=1.0465\hsize\linewidth=\hsize}X>{\hsize=0.9535\hsize\linewidth=\hsize}X}\toprule
+\textbf{Kiểm tra trước nộp} & \textbf{Kết quả / tệp / người kiểm}\\\midrule
+\strut Đã có báo cáo, PDF tính tay, 6–8 slide & \strut [Điền]\\
+\strut 36+18 cấu hình và JSON chứa đường & \strut [Điền]\\
+\strut Ít nhất 10 test riêng, log thật & \strut [Điền]\\
+\strut README, dữ liệu, Python và đóng góp & \strut [Điền]\\
+\strut Giải nén chạy lại trên máy thành viên khác & \strut [Điền]\\
+\strut Cả năm người tập trả lời 15–20 phút/nhóm & \strut [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Tên ZIP nộp: [Điền].\par Thành viên xác nhận / ngày: [Điền đủ 5 người].\par\medskip
+\end{document}
