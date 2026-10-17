@@ -1,0 +1,10 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {"name": "8-puzzle: tung dong A*", "type": "debugpy", "request": "launch",
+     "program": "${workspaceFolder}/astar_toi_gian.py", "console": "integratedTerminal"},
+    {"name": "8-puzzle: HAND trace", "type": "debugpy", "request": "launch",
+     "program": "${workspaceFolder}/run.py", "args": ["--case","HAND","--trace","6","--tag","debug"],
+     "console": "integratedTerminal"}
+  ]
+}
