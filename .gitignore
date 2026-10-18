@@ -5,17 +5,4 @@ __pycache__/
 
 .venv/
 
-MauBaoCao/
 output/
-DongGop.csv
-du_lieu_nhom_mau.json
-du_lieu_nhom.json
-
-*.aux
-*.log
-*.pdf
-*.synctex
-*.synctex.gz
-*.tex
-
-Timeline-presentation.md
