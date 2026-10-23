@@ -41,23 +41,26 @@ class NhomTests(unittest.TestCase):
             25,
         )
 
-    def test_heuristic_bang_0_tai_dich_tuy_chinh(self):
+    def test_heuristic_bang_0_tai_dich_va_bo_qua_o_trong(self):
         goal = (1, 2, 3, 4, 5, 6, 0, 7, 8)
-        state = GOAL
+        state = GOAL # (1, 2, 3, 4, 5, 6, 7, 8, 0)
 
-        # Tại goal, mọi heuristic bằng 0; khi đảo goal và GOAL,
-        # 7 và 8 lệch mỗi ô một bước, còn ô trống bị bỏ qua.
+        # So sánh GOAL và goal tùy chỉnh: 7 và 8 lệch mỗi ô một bước, ô trống bị bỏ qua 
+        # Vậy khoảng cách = chi phí = số ô sai vị trí = 2 với unit
+        # Với directional nhân trọng số 2 do di chuyển ngang
         expected = {
-            ("misplaced", "unit"): 2,
-            ("manhattan", "unit"): 2,
-            ("weighted", "unit"): 2,
-            ("weighted", "directional"): 4,
+            ("misplaced", "unit"): 2,   
+            ("manhattan", "unit"): 2,   
+            ("weighted", "unit"): 2,    
+            ("weighted", "directional"): 4,     
         }
+        # heuristic "zero" luôn bằng 0, không cần model
         self.assertEqual(make_heuristic(goal, name="zero")(goal), 0)
+
         for (name, model), value in expected.items():
             with self.subTest(heuristic=name, model=model):
                 heuristic = make_heuristic(goal, name=name, model=model)
-                self.assertEqual(heuristic(goal), 0)
-                self.assertEqual(heuristic(state), value)
+                self.assertEqual(heuristic(goal), 0)    # Kiểm tra: Tại goal, mọi heuristic bằng 0
+                self.assertEqual(heuristic(state), value)   
 
 if __name__=='__main__':unittest.main()
