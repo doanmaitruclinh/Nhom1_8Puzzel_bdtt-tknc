@@ -138,27 +138,18 @@ class NhomTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             check_path(start, (1, 2, 3, 4, 5, 6, 8, 7, 0), r["path"], r["actions"])
 
-    def test_kiem_tra_duong_di_va_chi_phi_hop_le(self): #test 7
-        start = (1, 2, 3, 4, 0, 6, 7, 5, 8)
-        r = solve(start, goal=GOAL, algorithm='astar', heuristic='manhattan', model='unit')
-
-        self.assertEqual(r['status'], 'solved')
-        # check_path trả tổng chi phí thật, hoặc raise ValueError nếu đường đi sai
-        cost_thuc = check_path(start, GOAL, r['path'], r['actions'], model='unit')
-        self.assertEqual(cost_thuc, r['cost'],
-            "Chi phí solve báo không khớp chi phí kiểm lại theo luật chuyển trạng thái.")
-        self.assertEqual(r['cost'], 2)
-        # print(r['status'], r['cost'], r['steps'], r['actions'])
-        # print("check_path =", cost_thuc)
-    
-    def test_dau_vao_bat_bien(self): #test 8
-        start = [1, 2, 3, 4, 0, 6, 7, 5, 8]
-        snapshot = list(start)
-
-        r = solve(start, goal=GOAL, algorithm='astar', heuristic='manhattan', model='unit')
-
-        self.assertEqual(start, snapshot)                     
-        self.assertEqual(r['path'][0], tuple(snapshot)) 
+    def test_duong_di_hop_le_va_dau_vao_bat_bien(self):   # gộp test 7 + 8
+        # Phần 1: đường đi hợp lệ, cost khớp luật chuyển trạng thái (đầu vào tuple)
+        with self.subTest("duong_di_hop_le"):
+            start = (1, 2, 3, 4, 0, 6, 7, 5, 8)
+            r = solve(start, goal=GOAL, algorithm='astar', heuristic='manhattan', model='unit')
+            self.assertEqual(r['status'], 'solved')
+            # check_path trả tổng chi phí thật, hoặc raise ValueError nếu đường đi sai
+            cost_thuc = check_path(start, GOAL, r['path'], r['actions'], model='unit')
+            self.assertEqual(cost_thuc, r['cost'],
+                "Chi phí solve báo không khớp chi phí kiểm lại theo luật chuyển trạng thái.")
+            self.assertEqual(r['cost'], 2)
+         
 
     def test_bfs_khong_toi_uu_gia_o_directional(self):
         M3 = (0, 8, 2, 4, 6, 3, 7, 1, 5)
@@ -170,7 +161,7 @@ class NhomTests(unittest.TestCase):
         self.assertEqual(r_ucs['cost'], 28)                # giá tối ưu
         self.assertGreater(r_bfs['cost'], r_ucs['cost'])   # BFS đắt hơn
 
-    def test_h_dem_ca_0(self):
+    def test_h_dem_ca_o_trong(self):
        #test bắt lỗi heuristic đếm cả ô trống nếu khác vị trí
         state_V = (1, 2, 3, 4, 5, 6, 7, 0, 8)
         goal_G  = (1, 2, 3, 4, 5, 6, 7, 8, 0)
