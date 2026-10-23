@@ -170,6 +170,43 @@ class NhomTests(unittest.TestCase):
         self.assertEqual(r_ucs['cost'], 28)                # giá tối ưu
         self.assertGreater(r_bfs['cost'], r_ucs['cost'])   # BFS đắt hơn
 
+    def test_h_dem_ca_0(self):
+       #test bắt lỗi heuristic đếm cả ô trống nếu khác vị trí
+        state_V = (1, 2, 3, 4, 5, 6, 7, 0, 8)
+        goal_G  = (1, 2, 3, 4, 5, 6, 7, 8, 0)
+        h_star = 1   # Chi phí thực tế tối thiểu từ V về G
+
+        # Hàm heuristic đếm cả ô 0 nếu khác vị trí
+        def h_dem_ca_0(state, goal):
+            return sum(1 for i in range(9) if state[i] != goal[i])
+
+        h_calculated = h_dem_ca_0(state_V, goal_G)
+        
+        # Khẳng định heuristic sai phạm tính chấp nhận được (h > h*)
+        self.assertGreater(h_calculated, h_star)
+        
+        
+
+    def test_h_dung_vi_tri_dich_co_dinh(self):
+        # bắt lỗi 2: cố định goal thay vì goal tùy chỉnh
+        goal_prime = (1, 2, 3, 4, 5, 6, 0, 7, 8)
+
+        # Hàm heuristic sai: cố định tính Manhattan theo GOAL chuẩn thay vì goal_prime
+        def h_wrong_fixed_goal(state, custom_goal):
+            fixed_goal_pos = {tile: divmod(idx, 3) for idx, tile in enumerate(GOAL)}
+            h_val = 0
+            for idx, tile in enumerate(state):
+                if tile == 0: continue
+                r, c = divmod(idx, 3)
+                rg, cg = fixed_goal_pos[tile]
+                h_val += abs(r - rg) + abs(c - cg)
+            return h_val
+
+        h_at_goal = h_wrong_fixed_goal(goal_prime, custom_goal=goal_prime)
+        
+        # Khẳng định tại đích tùy chỉnh nhưng h khác 0
+        self.assertNotEqual(h_at_goal, 0)
+
     def test_doi_chieu_astar_zero_va_ucs(self): #test 9
         start_state = (1, 3, 6, 5, 0, 2, 4, 7, 8)
 
