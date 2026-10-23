@@ -149,7 +149,15 @@ class NhomTests(unittest.TestCase):
             self.assertEqual(cost_thuc, r['cost'],
                 "Chi phí solve báo không khớp chi phí kiểm lại theo luật chuyển trạng thái.")
             self.assertEqual(r['cost'], 2)
-         
+            
+          # Phần 2: đầu vào dạng list (kiểu sửa được) không bị solve sửa tại chỗ
+        with self.subTest("dau_vao_bat_bien"):
+            start_list = [1, 2, 3, 4, 0, 6, 7, 5, 8]
+            snapshot = list(start_list)
+            r2 = solve(start_list, goal=GOAL, algorithm='astar', heuristic='manhattan', model='unit')
+            self.assertEqual(start_list, snapshot, "solve đã sửa trực tiếp đầu vào!")
+            self.assertEqual(r2['path'][0], tuple(snapshot))
+            self.assertEqual(r2['cost'], 2)    
 
     def test_bfs_khong_toi_uu_gia_o_directional(self):
         M3 = (0, 8, 2, 4, 6, 3, 7, 1, 5)
