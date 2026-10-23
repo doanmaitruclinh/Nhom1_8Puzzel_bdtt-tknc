@@ -5,22 +5,24 @@ from puzzle import GOAL, check_path, make_heuristic
 class NhomTests(unittest.TestCase):
     def test_trang_thai_dau_trung_dich(self): #test 1
         start = (1, 2, 3, 4, 5, 6, 0, 7, 8) 
-        r = solve(start, goal=GOAL, model="unit", algorithm="astar") 
+        goal = (1,2,3,4,5,6,0,7,8)
+        r = solve(start, goal, model="unit", algorithm="astar") 
         self.assertEqual(r["status"], "solved") 
         self.assertEqual(r["steps"], 0) 
         self.assertEqual(r["cost"], 0) 
-        self.assertEqual(r["path"], [GOAL]) 
+        self.assertEqual(r["path"], [goal]) 
         self.assertEqual(r["actions"], []) 
     def test_chuyen_dich_mot_buoc_ngang_doc(self): #test 2
         # 1. Trạng thái cách G' đúng 1 bước dọc (0 đi Down) có chi phí là 1: 
-        start_doc = (1, 2, 3, 0, 5, 6, 4, 7, 8) 
-        r_doc = solve(start_doc, goal=GOAL, model="directional", algorithm="astar") 
+        start_doc = (1, 2, 3, 0, 5, 6, 4, 7, 8)
+        goal = (1,2,3,4,5,6,0,7,8)
+        r_doc = solve(start_doc, goal, model="directional", algorithm="astar") 
         self.assertEqual(r_doc["steps"], 1) 
         self.assertEqual(r_doc["cost"], 1) 
         self.assertEqual(r_doc["actions"], ["D"]) 
         # 2. Trạng thái cách G' đúng 1 bước ngang (0 đi Left) có chi phí là 2:
         start_ngang = (1, 2, 3, 4, 5, 6, 7, 0, 8) 
-        r_ngang = solve(start_ngang, goal=GOAL, model="directional", algorithm="astar") 
+        r_ngang = solve(start_ngang, goal, model="directional", algorithm="astar") 
         self.assertEqual(r_ngang["steps"], 1) 
         self.assertEqual(r_ngang["cost"], 2)
 
