@@ -1,9 +1,6 @@
-"""Hai ví dụ cách viết test. Sao chép thành test_nhom.py, thay/bổ sung dữ liệu
-và khẳng định riêng; cần ít nhất 10 test có nội dung khác test_mau.py.
-"""
 import unittest
 from search import solve
-from puzzle import GOAL, check_path, validate_state, is_solvable, make_heuristic
+from puzzle import GOAL, check_path, make_heuristic
 
 class NhomTests(unittest.TestCase):
     def trang_thai_dau_trung_dich(self): #test 1
