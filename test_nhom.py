@@ -83,7 +83,7 @@ class NhomTests(unittest.TestCase):
             25,
         )
     
-    def test_heuristic_bang_0_tai_dich_va_bo_qua_o_trong(self): #test 5
+    def test_heuristic_bang_0_tai_dich_va_bo_qua_o_trong(self): #test 4
         goal = (1, 2, 3, 4, 5, 6, 0, 7, 8)
         state = GOAL # (1, 2, 3, 4, 5, 6, 7, 8, 0)
     
