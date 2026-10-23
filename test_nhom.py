@@ -100,7 +100,7 @@ class NhomTests(unittest.TestCase):
         self.assertEqual(r_ucs['cost'], 28)                # giá tối ưu
         self.assertGreater(r_bfs['cost'], r_ucs['cost'])   # BFS đắt hơn
 
-    def test_astar_zero_equals_ucs_and_bfs_directional_cost(self): #test 9
+    def test_doi_chieu_astar_zero_va_ucs(self): #test 9
         start_state = (1, 3, 6, 5, 0, 2, 4, 7, 8)
 
         # Đối chiếu A* (h=0) vs UCS
@@ -112,7 +112,7 @@ class NhomTests(unittest.TestCase):
             self.assertEqual(res_ucs[key], res_astar_zero[key], 
                 f"Chỉ số {key} giữa UCS và A*(h=0) không trung khớp!")
 
-    def test_trace_independence_and_resource_limit(self): #test 10
+    def test_doc_lap_trace_va_gioi_han_tai_nguyen(self): #test 10
         start_state = (1, 3, 6, 5, 0, 2, 4, 7, 8)
 
         # Tính độc lập của trace 
