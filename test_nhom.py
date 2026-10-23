@@ -3,26 +3,6 @@ và khẳng định riêng; cần ít nhất 10 test có nội dung khác test_m
 """
 import unittest
 from search import solve
-<<<<<<< Updated upstream
-from puzzle import GOAL, check_path
-
-class NhomTests(unittest.TestCase):
-    def test_zero_equals_ucs(self):
-        a=solve(,algorithm='ucs');b=solve(,heuristic='zero')
-        for k in ('path','cost','expanded','generated','pushed','popped'):
-            self.assertEqual(a[k],b[k])
-    def test_trace_no_result_change(self):
-        a=solve(DEMO);b=solve(DEMO,trace_limit=2)
-        for k in ('path','cost','expanded','generated','pushed','popped'):self.assertEqual(a[k],b[k])
-    def test_trace_independent(self):
-        r=solve(DEMO,trace_limit=10)
-        self.assertIsNot(r['trace'][0],r['trace'][1])
-        self.assertNotEqual(r['trace'][0]['state'],r['trace'][1]['state'])
-    def test_zero_limit_goal(self):
-        self.assertEqual(solve(GOAL,max_expanded=0)['status'],'solved')
-    def test_limit_not_unsolvable(self):
-        self.assertEqual(solve(DEMO,max_expanded=0)['status'],'limit')
-=======
 from puzzle import GOAL, check_path, validate_state, is_solvable, make_heuristic
 
 def bad_heuristic_count_zero(state, goal):  
@@ -35,9 +15,6 @@ def bad_heuristic_count_zero(state, goal):
         res += abs(r - rg) + abs(c - cg) 
         return res 
 def bad_heuristic_fixed_goal(state, goal=None): 
-    """ HÀM SAI 2: Cố định vị trí đích chuẩn (1,2,3,4,5,6,7,8,0) thay vì dùng goal được truyền vào. 
-    Lỗi: Khi nhóm dùng đích mới G' = (1,2,3,4,5,6,0,7,8), hàm này sẽ tính sai vị trí đích, dẫn đến h(G', G') > 0 
-    (vi phạm điều kiện bắt buộc h(goal) = 0). """ 
     fixed_goal = (1, 2, 3, 4, 5, 6, 7, 8, 0) 
     pos_fixed = {tile: divmod(i, 3) for i, tile in enumerate(fixed_goal)} 
     res = 0 
@@ -83,10 +60,7 @@ class NhomTests(unittest.TestCase):
         r_ngang = solve(start_ngang, goal=GOAL, model="directional", algorithm="astar") 
         self.assertEqual(r_ngang["steps"], 1) 
         self.assertEqual(r_ngang["cost"], 2) 
-    def bat_loi_heuristic_dem_ca_zero(self): 
-        """ Test phản ví dụ (D3): Xác nhận hàm bad_heuristic_count_zero bị bắt lỗi.
-        Trạng thái start cách G' 1 bước dọc. Chi phí thật h*(s) = 1. 
-        Hàm chuẩn trả h = 1, nhưng hàm sai cộng thêm ô 0 nên trả h = 2 > h*, vi phạm tính chấp nhận được. """
+    def bat_loi_heuristic_dem_ca_khong(self): 
         start = (1, 2, 3, 0, 5, 6, 4, 7, 8) 
         h_chuan = make_heuristic(GOAL, heuristic="manhattan", model="unit") 
         val_chuan = h_chuan(start) 
@@ -96,12 +70,9 @@ class NhomTests(unittest.TestCase):
         # Ô 0 lệch vị trí bị đếm thêm 1 
         self.assertGreater(val_sai, val_chuan, "Hàm sai đã vi phạm tính chấp nhận được khi lớn hơn h chuẩn!") 
     def bat_loi_heuristic_fixed_goal(self): 
-        """ Test phản ví dụ (D3): Xác nhận hàm bad_heuristic_fixed_goal bị bắt lỗi khi đổi goal. 
-        Tại chính trạng thái đích G', h(G', G') bắt buộc phải bằng 0. 
-        Hàm sai do cố định goal chuẩn nên tính h(G') = 2 != 0. """ 
         val_sai = bad_heuristic_fixed_goal(GOAL) 
         self.assertNotEqual(val_sai, 0, "Hàm sai không nhận biết được đích mới G'!") 
-        self.assertEqual(val_sai, 2) 
+        self.assertEqual(val_sai, 2)  
 
     def test_astar_zero_equals_ucs_and_bfs_directional_cost(self): #test 9
         start_state = (1, 3, 6, 5, 0, 2, 4, 7, 8)
@@ -137,6 +108,7 @@ class NhomTests(unittest.TestCase):
         start_state = (1, 3, 6, 5, 0, 2, 4, 7, 8)
 
         # Tính độc lập của trace 
+
         res_no_trace = solve(start_state, algorithm='astar', heuristic='manhattan')
         res_with_trace = solve(start_state, algorithm='astar', heuristic='manhattan', trace_limit=5)
 
@@ -166,6 +138,4 @@ class NhomTests(unittest.TestCase):
             "Khi chưa tìm thấy lời giải do chạm limit, path phải trả về rỗng []."
         )
 
-
->>>>>>> Stashed changes
 if __name__=='__main__':unittest.main()
