@@ -9,7 +9,7 @@ Học phần: Biểu diễn tri thức và tìm kiếm nâng cao. Giảng viên:
 - Phần được dùng lại từ mã mẫu: puzzle.py, run.py, tao_du_lieu.py, search.py, dong_goi.py, kiem_tra_moi_truong.py, data_case.py bao gồm thuật toán BFS, UCS, A*, cơ chế sinh con `neighbors`, kiểm tra `is_solvable`, `validate_state` và khởi tạo `make_heuristic`.
 - Phần nhóm tự thay / viết / kiểm chứng:
 * `du_lieu_nhom.json`: Tự sinh dữ liệu riêng cho 2 bàn N1, N2 dùng chung một trạng thái đích mới G' = (1, 2, 3, 4, 5, 6, 0, 7, 8). 
-* `test_nhom.py`: Xây dựng 10 unit test tự động (mỗi thành viên 2 test) và 2 hàm heuristic sai (`bad_heuristic_count_zero`, `bad_heuristic_fixed_goal`) làm phản ví dụ bắt lỗi. 
+* `test_nhom.py`: Xây dựng 10 unit test tự động (mỗi thành viên 2 test) 
 * `DongGop.csv`: Khai báo phân công công việc và % đóng góp của 5 thành viên. 
 * `TinhTay.pdf`, `BaoCao.pdf`, `ThuyetTrinh.pdf`.
 
