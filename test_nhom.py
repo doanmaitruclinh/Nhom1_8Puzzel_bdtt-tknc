@@ -1,6 +1,6 @@
 import unittest
 from search import solve
-from puzzle import GOAL, check_path, make_heuristic
+from puzzle import GOAL, check_path, make_heuristic, validate_state, is_solvable, neighbors
 
 class NhomTests(unittest.TestCase):
     def test_trang_thai_dau_trung_dich(self): #test 1
@@ -69,6 +69,74 @@ class NhomTests(unittest.TestCase):
                 heuristic = make_heuristic(goal, name=name, model=model)
                 self.assertEqual(heuristic(goal), 0)    # Kiểm tra: Tại goal, mọi heuristic bằng 0
                 self.assertEqual(heuristic(state), value)   
+
+    def test_vo_nghiem_do_parity(self):  # test 5
+        # Z = (1,2,3,4,5,6,8,7,0): 1 nghịch thế (8 đứng trước 7) -> lẻ -> vô nghiệm với G
+        Z = (1, 2, 3, 4, 5, 6, 8, 7, 0)
+        r = solve(Z, goal=GOAL, algorithm="astar", heuristic="manhattan", model="unit")
+        
+        # 1) Kết luận vô nghiệm do parity, KHÔNG phải do hết tài nguyên
+        self.assertEqual(r["status"], "unsolvable")
+        # 2) Không mở rộng, không sinh con, không push gì (parity là tiền xử lý)
+        self.assertEqual(r["expanded"], 0)
+        self.assertEqual(r["generated"], 0)
+        self.assertEqual(r["pushed"], 0)
+        self.assertEqual(r["popped"], 0)
+        self.assertEqual(r["path"], [])
+        self.assertEqual(r["actions"], [])
+
+        # 3) Phân biệt với "limit": nếu cho max_expanded = 0 thì vẫn phải unsolvable,
+        #    vì parity bị loại TRƯỚC khi tìm kiếm.
+        r_limit0 = solve(Z, goal=GOAL, algorithm="astar", max_expanded=0)
+        self.assertEqual(r_limit0["status"], "unsolvable")
+
+        # 4) Đổi goal thành chính Z thì Z là đích -> không còn vô nghiệm
+        self.assertTrue(is_solvable(Z, Z))
+        r2 = solve(Z, goal=Z, algorithm="astar")
+        self.assertEqual(r2["status"], "solved")
+        self.assertEqual((r2["steps"], r2["cost"]), (0, 0))
+
+    def test_du_lieu_sai_va_hanh_dong_vuot_bien(self):  # test 6
+        # --- 6a: validate_state phải raise ValueError ---
+        bad_states = [
+            (1, 2, 3, 4, 5, 6, 7, 8),          # thiếu 1 phần tử
+            (0, 1, 2, 3, 4, 5, 6, 7, 9),       # có 9, thiếu 8
+            (1, 1, 2, 3, 4, 5, 6, 7, 8),       # trùng số 1
+            (False, 1, 2, 3, 4, 5, 6, 7, 8),   # bool không được nhận
+        ]
+        for bad in bad_states:
+            with self.subTest(bad=bad):
+                with self.assertRaises(ValueError):
+                    validate_state(bad)
+                with self.assertRaises(ValueError):
+                    solve(bad)
+
+        # --- 6b: solve() với order sai ---
+        with self.assertRaises(ValueError):
+            solve(GOAL, order="UDLL")
+        with self.assertRaises(ValueError):
+            solve(GOAL, model="khong_ton_tai")
+        with self.assertRaises(ValueError):
+            solve(GOAL, algorithm="dfs")
+
+        # --- 6c: hành động vượt biên bị neighbors lọc, check_path phải từ chối ---
+        corner = (0, 1, 2, 3, 4, 5, 6, 7, 8)   # 0 ở góc trên trái
+        actions = [a for a, _, _ in neighbors(corner)]
+        self.assertEqual(actions, ["D", "R"])   # không sinh U, L
+
+        # Tự tạo một "đường đi giả" dùng hành động U vượt biên -> check_path phải raise
+        with self.assertRaises(ValueError):
+            check_path(corner, corner, [corner, corner], ["U"])
+
+        # --- 6d: check_path từ chối đường đi sai số trạng thái / sai đích ---
+        start = (1, 2, 3, 4, 0, 6, 7, 5, 8)
+        r = solve(start, goal=GOAL)
+        # cắt bớt 1 trạng thái nhưng giữ nguyên actions -> sai len
+        with self.assertRaises(ValueError):
+            check_path(start, GOAL, r["path"][:-1], r["actions"])
+        # đổi đích cuối -> sai đầu-cuối
+        with self.assertRaises(ValueError):
+            check_path(start, (1, 2, 3, 4, 5, 6, 8, 7, 0), r["path"], r["actions"])
 
     def test_kiem_tra_duong_di_va_chi_phi_hop_le(self): #test 7
         start = (1, 2, 3, 4, 0, 6, 7, 5, 8)
