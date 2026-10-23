@@ -5,7 +5,7 @@ Học phần: Biểu diễn tri thức và tìm kiếm nâng cao. Giảng viên:
 
 ## Môi trường đã kiểm tra
 - Hệ điều hành / phiên bản Python: Windows 11 / 3.12.10
-- Máy của thành viên đã giải nén chạy lại: Nguyễn Thanh Bình
+- Máy của thành viên đã giải nén chạy lại: Đoàn Mai Trúc Linh
 - Phần được dùng lại từ mã mẫu: puzzle.py, run.py, tao_du_lieu.py, search.py, dong_goi.py, kiem_tra_moi_truong.py, data_case.py bao gồm thuật toán BFS, UCS, A*, cơ chế sinh con `neighbors`, kiểm tra `is_solvable`, `validate_state` và khởi tạo `make_heuristic`.
 - Phần nhóm tự thay / viết / kiểm chứng:
 * `du_lieu_nhom.json`: Tự sinh dữ liệu riêng cho 2 bàn N1, N2 dùng chung một trạng thái đích mới G' = (1, 2, 3, 4, 5, 6, 0, 7, 8). 
