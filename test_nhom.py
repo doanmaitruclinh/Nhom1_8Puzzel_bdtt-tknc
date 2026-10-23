@@ -8,28 +8,26 @@ from puzzle import GOAL, check_path
 class NhomTests(unittest.TestCase):
     
 
-    def test_kiem_tra_duong_di_va_chi_phi_hop_le(self): #test 7
-        start = (1, 2, 3, 4, 0, 6, 7, 5, 8)
-        r = solve(start, goal=GOAL, algorithm='astar', heuristic='manhattan', model='unit')
+    def test_duong_di_hop_le_va_dau_vao_bat_bien(self):   # gộp test 7 + 8
+        # Phần 1: đường đi hợp lệ, cost khớp luật chuyển trạng thái (đầu vào tuple)
+        with self.subTest("duong_di_hop_le"):
+            start = (1, 2, 3, 4, 0, 6, 7, 5, 8)
+            r = solve(start, goal=GOAL, algorithm='astar', heuristic='manhattan', model='unit')
+            self.assertEqual(r['status'], 'solved')
+            # check_path trả tổng chi phí thật, hoặc raise ValueError nếu đường đi sai
+            cost_thuc = check_path(start, GOAL, r['path'], r['actions'], model='unit')
+            self.assertEqual(cost_thuc, r['cost'],
+                "Chi phí solve báo không khớp chi phí kiểm lại theo luật chuyển trạng thái.")
+            self.assertEqual(r['cost'], 2)
 
-        self.assertEqual(r['status'], 'solved')
-        # check_path trả tổng chi phí thật, hoặc raise ValueError nếu đường đi sai
-        cost_thuc = check_path(start, GOAL, r['path'], r['actions'], model='unit')
-        self.assertEqual(cost_thuc, r['cost'],
-            "Chi phí solve báo không khớp chi phí kiểm lại theo luật chuyển trạng thái.")
-        self.assertEqual(r['cost'], 2)
-        # print(r['status'], r['cost'], r['steps'], r['actions'])
-        # print("check_path =", cost_thuc)
-
-    
-    def test_dau_vao_bat_bien(self):  # test 8
-        start = [1, 2, 3, 4, 0, 6, 7, 5, 8]
-        snapshot = list(start)
-
-        r = solve(start, goal=GOAL, algorithm='astar', heuristic='manhattan', model='unit')
-
-        self.assertEqual(start, snapshot)                     
-        self.assertEqual(r['path'][0], tuple(snapshot)) 
+        # Phần 2: đầu vào dạng list (kiểu sửa được) không bị solve sửa tại chỗ
+        with self.subTest("dau_vao_bat_bien"):
+            start_list = [1, 2, 3, 4, 0, 6, 7, 5, 8]
+            snapshot = list(start_list)
+            r2 = solve(start_list, goal=GOAL, algorithm='astar', heuristic='manhattan', model='unit')
+            self.assertEqual(start_list, snapshot, "solve đã sửa trực tiếp đầu vào!")
+            self.assertEqual(r2['path'][0], tuple(snapshot))
+            self.assertEqual(r2['cost'], 2)     
         
 
 
