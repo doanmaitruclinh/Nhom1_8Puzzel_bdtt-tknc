@@ -3,6 +3,8 @@ from search import solve
 from puzzle import GOAL, check_path, make_heuristic, validate_state, is_solvable, neighbors
 
 class NhomTests(unittest.TestCase):
+
+
     def test_trang_thai_dau_trung_dich(self): #test 1
         start = (1, 2, 3, 4, 5, 6, 0, 7, 8) 
         goal = (1,2,3,4,5,6,0,7,8)
@@ -12,6 +14,8 @@ class NhomTests(unittest.TestCase):
         self.assertEqual(r["cost"], 0) 
         self.assertEqual(r["path"], [goal]) 
         self.assertEqual(r["actions"], []) 
+
+
     def test_chuyen_dich_mot_buoc_ngang_doc(self): #test 2
         # 1. Trạng thái cách G' đúng 1 bước dọc (0 đi Down) có chi phí là 1: 
         start_doc = (1, 2, 3, 0, 5, 6, 4, 7, 8)
@@ -35,6 +39,7 @@ class NhomTests(unittest.TestCase):
         self.assertEqual(r_unit_ngang["cost"], 1) 
         self.assertEqual(r_unit_ngang["actions"], ["L"]) 
 
+
     def test_dich_tuy_chinh(self): #test 3
         goal = (1, 2, 3, 4, 5, 6, 0, 7, 8)
         start = (6, 1, 3, 5, 0, 2, 4, 7, 8)
@@ -56,6 +61,7 @@ class NhomTests(unittest.TestCase):
                         r_directional["actions"], "directional"),
             25,
         )
+
     
     def test_heuristic_bang_0_tai_dich_va_bo_qua_o_trong(self): #test 4
         goal = (1, 2, 3, 4, 5, 6, 0, 7, 8)
@@ -78,6 +84,7 @@ class NhomTests(unittest.TestCase):
                 heuristic = make_heuristic(goal, name=name, model=model)
                 self.assertEqual(heuristic(goal), 0)    # Kiểm tra: Tại goal, mọi heuristic bằng 0
                 self.assertEqual(heuristic(state), value)   
+
 
     def test_vo_nghiem_do_parity(self):  # test 5
         # Z = (1,2,3,4,5,6,8,7,0): 1 nghịch thế (8 đứng trước 7) -> lẻ -> vô nghiệm với G
@@ -104,6 +111,7 @@ class NhomTests(unittest.TestCase):
         r2 = solve(Z, goal=Z, algorithm="astar")
         self.assertEqual(r2["status"], "solved")
         self.assertEqual((r2["steps"], r2["cost"]), (0, 0))
+
 
     def test_du_lieu_sai_va_hanh_dong_vuot_bien(self):  # test 6
         # --- 6a: validate_state phải raise ValueError ---
@@ -147,6 +155,7 @@ class NhomTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             check_path(start, (1, 2, 3, 4, 5, 6, 8, 7, 0), r["path"], r["actions"])
 
+
     def test_duong_di_hop_le_va_dau_vao_bat_bien(self):   # gộp test 7 + 8
         # Phần 1: đường đi hợp lệ, cost khớp luật chuyển trạng thái (đầu vào tuple)
         with self.subTest("duong_di_hop_le"):
@@ -168,6 +177,7 @@ class NhomTests(unittest.TestCase):
             self.assertEqual(r2['path'][0], tuple(snapshot))
             self.assertEqual(r2['cost'], 2)    
 
+
     def test_bfs_khong_toi_uu_gia_o_directional(self):
         M3 = (0, 8, 2, 4, 6, 3, 7, 1, 5)
         r_bfs = solve(M3, algorithm='bfs', model='directional')
@@ -177,6 +187,7 @@ class NhomTests(unittest.TestCase):
         self.assertEqual(r_bfs['steps'], 20)               # ít bước nhất
         self.assertEqual(r_ucs['cost'], 28)                # giá tối ưu
         self.assertGreater(r_bfs['cost'], r_ucs['cost'])   # BFS đắt hơn
+
 
     def test_h_dem_ca_o_trong(self):
        #test bắt lỗi heuristic đếm cả ô trống nếu khác vị trí
@@ -194,7 +205,6 @@ class NhomTests(unittest.TestCase):
         self.assertGreater(h_calculated, h_star)
         
         
-
     def test_h_dung_vi_tri_dich_co_dinh(self):
         # bắt lỗi 2: cố định goal thay vì goal tùy chỉnh
         goal_prime = (1, 2, 3, 4, 5, 6, 0, 7, 8)
@@ -215,6 +225,7 @@ class NhomTests(unittest.TestCase):
         # Khẳng định tại đích tùy chỉnh nhưng h khác 0
         self.assertNotEqual(h_at_goal, 0)
 
+
     def test_doi_chieu_astar_zero_va_ucs(self): #test 9
         start_state = (1, 3, 6, 5, 0, 2, 4, 7, 8)
 
@@ -226,6 +237,7 @@ class NhomTests(unittest.TestCase):
         for key in metrics:
             self.assertEqual(res_ucs[key], res_astar_zero[key], 
                 f"Chỉ số {key} giữa UCS và A*(h=0) không trung khớp!")
+
 
     def test_doc_lap_trace_va_gioi_han_tai_nguyen(self): #test 10
         start_state = (1, 3, 6, 5, 0, 2, 4, 7, 8)
@@ -250,4 +262,6 @@ class NhomTests(unittest.TestCase):
         self.assertEqual(res_limit['status' ], 'limit', "Khi vượt quá max_expanded, status phải trả về 'limit'.")
         self.assertEqual(res_limit['path'], [], "Khi chưa tìm thấy lời giải do chạm limit, path phải trả về rỗng [].")
 
-if __name__=='__main__':unittest.main()
+
+if __name__=='__main__':
+    unittest.main()
