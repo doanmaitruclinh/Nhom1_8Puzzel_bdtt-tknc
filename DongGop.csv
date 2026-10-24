@@ -1,6 +1,6 @@
 HoTen,MSSV,ViecThucHien,HaiTestPhuTrach,KiemTraCheo,TepMinhChung
-Đoàn Mai Trúc Linh,25022911, Thực hành với mã hoàn chỉnh & tạo dữ liệu và đóng gói ,[Dien],[Dien],[Dien]
-Trần Thùy Dương,25022816,Mô hình hóa bài toán Mã giả A* & Chứng minh Heuristic ,[Dien],[Dien],[Dien]
-Hoàng Thị Ngọc Sơn,25023009,Tính tay Vết chạy A* & Phân tích phản ví dụ,[Dien],[Dien],[Dien]
-Phạm Hồ Minh Thư,25023057,Phân tích thực nghiệm & Nhận xét báo cáo,[Dien],[Dien],[Dien]
-Nguyễn Thanh Bình,25022796,Slide Thuyết trình & Lập trình Kiểm thử,[Dien],[Dien],[Dien]
+Đoàn Mai Trúc Linh,25022911,Thực hành với mã hoàn chỉnh & tạo dữ liệu và đóng gói,test_trang_thai_dau_trung_dich & test_chuyen_ dich_ mot_ buoc_ngang_doc,BaoCao.pdf và TinhTay.pdf,bat_buoc.csv/json & tu_tao.csv/json & du_lieu_nhom.json & BaoCao.pdf phần 1 / phần 5 / mục 12 phần 7 & 2 test trong test_nhom.py & README_NHOM1.md
+Trần Thùy Dương,25022816,Mô hình hóa bài toán Mã giả A* & Chứng minh Heuristic,test_dich_tuy_chinh & test_heuristic_bang_0_tai_dich_va_bo_qua_o_trong,du_lieu_nhom.json và tu_tao.csv, BaoCao.pdf phần 1 (mô hình hóa bài toán) / phần 2 & 2 test trong test_nhom.py
+Hoàng Thị Ngọc Sơn,25023009,Tính tay Vết chạy A* & Phân tích phản ví dụ,test_vo_nghiem_do_parity & test_du_lieu_sai_va_hanh_dong_vuot_bien ,test_nhom.py,TinhTay.pdf & phần 3 trong BaoCao.pdf & 2 test trong test_nhom.py
+Phạm Hồ Minh Thư,25023057,Phân tích thực nghiệm & Nhận xét báo cáo,test_duong_di_hop_le_va_dau_vao_bat_bien & test_bfs_khong_toi_uu_gia_o_directional,ThuyetTrinh.pdf,mục 10 và 11 phần 7 / phần 4 trong BaoCao.pdf & 2 test được giao cùng 2 test bắt lỗi heuristic trong test_nhom.py
+Nguyễn Thanh Bình,25022796,Slide Thuyết trình & Lập trình Kiểm thử,test_doi_chieu_astar_zero_va_ucs & test_doc_lap_trace_va_gioi_han_tai_nguyen,README_NHOM1.md,ThuyetTrinh.pdf và test_nhom.py
