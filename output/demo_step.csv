@@ -1,2 +1,0 @@
-﻿case,model,algorithm,heuristic,order,status,steps,cost,expanded,generated,pushed,popped,stale_pops,reopened,max_frontier,elapsed_ms
-DEMO,unit,astar,manhattan,UDLR,solved,2,2,2,7,7,3,0,0,5,11990.63810001826
